@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 32px;
   background: #E1FAF7;
 `;
 
@@ -12,7 +11,6 @@ export const Text = styled.Text`
 `;
 
 export const ProceduresListHeader = styled.View`
-  margin-top: 32px;
   margin-bottom: 48px;
 `;
 
@@ -21,6 +19,22 @@ export const ProceduresListTitle = styled(Text)`
 `;
 
 export const ProceduresList = styled(FlatList)``;
+
+export const ProceduresListCard = styled.TouchableOpacity`
+  flex-direction: row;
+
+  padding: 16px;
+  margin-bottom: 8px;
+  border-radius: 16px;
+  background: ${({theme}) => theme.colors.secondary};
+
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ProceduresListCardName = styled.Text`
+  font-family: ${({theme}) => theme.fonts.medium};
+`;
 
 export const AddButton = styled.TouchableOpacity`
   background: ${({theme}) => theme.colors.primary};

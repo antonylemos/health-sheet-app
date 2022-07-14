@@ -1,5 +1,5 @@
 export const mockedUser = {
-  id: 1,
+  id: 2,
   first_name: null,
   last_name: null,
   email: null,

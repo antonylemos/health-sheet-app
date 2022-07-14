@@ -6,8 +6,12 @@ import { Header } from '../../components/Header';
 import { mockedUser } from '../../mocks/user';
 import { api } from '../../services/api';
 
-import { AddButton, Container, ProceduresList, ProceduresListHeader, ProceduresListTitle } from './styles';
+import { AddButton, Container, ProceduresList, ProceduresListCard, ProceduresListCardName, ProceduresListHeader, ProceduresListTitle } from './styles';
 import { LoadingView } from '../../components/LoadingView';
+import { useBottomSheet } from '../../contexts/bottom-sheet';
+import { theme } from '../../styles';
+import { AddProcedure } from '../../components/AddProcedure';
+import { ProcedureDetail } from '../../components/ProcedureDetail';
 
 export interface Procedure {
   id: number;
@@ -22,6 +26,8 @@ export interface Procedure {
 }
 
 export function Home() {
+  const { handleBottomSheet, clear } = useBottomSheet();
+
   const [procedures, setProcedures] = useState<Procedure[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,17 +43,22 @@ export function Home() {
     }
   }, []);
 
-  const addProcedure = useCallback(async () => {
-    const mockedProcedure = {
-      name: `Procedimento teste ${Math.random()}`,
-      description: "Procedimento criado para testes",
-      type: null,
-      category: null,
+  const addProcedure = useCallback(async (data) => {
+    const newProcedure = {
+      ...data,
       userId: mockedUser.id,
     };
 
     try {
-      await api.post('procedures', mockedProcedure);
+      await api.post('procedures', newProcedure);
+    } finally {
+      fetchProcedures();
+    }
+  }, [fetchProcedures]);
+
+  const deleteProcedure = useCallback(async (id: number) => {
+    try {
+      await api.delete(`procedures/${id}`);
     } finally {
       fetchProcedures();
     }
@@ -67,15 +78,22 @@ export function Home() {
 
       <ProceduresList
         data={procedures}
+        contentContainerStyle={{ paddingHorizontal: 32, paddingBottom: 104 }}
         ListHeaderComponent={() => (
           <ProceduresListHeader>
             <ProceduresListTitle>Adicionados recentemente</ProceduresListTitle>
           </ProceduresListHeader>
         )}
-        renderItem={({ item: procedure }) => <Text>{procedure.name}</Text>}
+        renderItem={({ item: procedure }) => (
+          <ProceduresListCard onPress={() => handleBottomSheet({ component: <ProcedureDetail data={procedure as Procedure} deleteProcedure={deleteProcedure} closeProcedureDetail={clear} /> })}>
+            <ProceduresListCardName>{procedure.name}</ProceduresListCardName>
+
+            <Feather name="eye" size={24} color={theme.colors.primary} />
+          </ProceduresListCard>
+        )}
       />
 
-      <AddButton onPress={addProcedure}>
+      <AddButton onPress={() => handleBottomSheet({ component: <AddProcedure addProcedure={addProcedure} closeAddProcedure={clear} /> })}>
         <Feather name="plus" size={24} color="#fff" />
       </AddButton>
     </Container>

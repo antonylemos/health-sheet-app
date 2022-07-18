@@ -10,8 +10,9 @@ import { LogBox } from "react-native";
 import { ThemeProvider } from "styled-components";
 import { BottomSheetProvider } from "./contexts/bottom-sheet";
 
-//import { Login } from "./screens/Login";
+import { Login } from "./screens/Login";
 import { Home } from "./screens/Home";
+import { Register } from "./screens/Register";
 
 import { theme } from "./styles";
 
@@ -34,9 +35,9 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <BottomSheetProvider>
-        <StatusBar backgroundColor={theme.colors.background} style="dark" />
+        <StatusBar backgroundColor={theme.colors.white} style="dark" />
 
-        <Home />
+        <Register />
       </BottomSheetProvider>
     </ThemeProvider>
   );

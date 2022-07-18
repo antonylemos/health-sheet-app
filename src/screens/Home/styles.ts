@@ -1,9 +1,9 @@
-import { FlatList } from 'react-native';
-import styled from 'styled-components/native';
+import { FlatList } from "react-native";
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
-  background: #E1FAF7;
+  background: #fff;
 `;
 
 export const Text = styled.Text`
@@ -15,7 +15,7 @@ export const ProceduresListHeader = styled.View`
 `;
 
 export const ProceduresListTitle = styled(Text)`
-  font-family: ${({theme}) => theme.fonts.bold};
+  font-family: ${({ theme }) => theme.fonts.bold};
 `;
 
 export const ProceduresList = styled(FlatList)``;
@@ -26,22 +26,22 @@ export const ProceduresListCard = styled.TouchableOpacity`
   padding: 16px;
   margin-bottom: 8px;
   border-radius: 16px;
-  background: ${({theme}) => theme.colors.secondary};
+  background: ${({ theme }) => theme.colors.secondary};
 
   justify-content: space-between;
   align-items: center;
 `;
 
 export const ProceduresListCardName = styled.Text`
-  font-family: ${({theme}) => theme.fonts.medium};
+  font-family: ${({ theme }) => theme.fonts.medium};
 `;
 
 export const AddButton = styled.TouchableOpacity`
-  background: ${({theme}) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.primary};
 
   height: 64px;
   width: 64px;
-  border-radius: 16px;
+  border-radius: 50px;
 
   align-self: center;
   align-items: center;

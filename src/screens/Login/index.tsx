@@ -1,6 +1,7 @@
 import { Text, Image } from "react-native";
 import { api } from "../../services/api";
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
+import healthSheet from "../../assets/health-sheet.png";
 import {
   Container,
   LogoPageLogin,
@@ -17,7 +18,7 @@ export function Login() {
   return (
     <Container>
       <LogoPageLogin>
-        <Image source={require("../../assets/logo.png")} />
+        <Image source={healthSheet} />
         <Title>Health Sheet</Title>
       </LogoPageLogin>
       <Input>

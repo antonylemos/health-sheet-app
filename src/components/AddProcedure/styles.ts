@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   height: 100%;
@@ -23,8 +23,7 @@ export const PressArea = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-export const Form = styled.View`
-`;
+export const Form = styled.View``;
 
 export const Input = styled.View`
   width: 100%;

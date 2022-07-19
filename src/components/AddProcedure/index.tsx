@@ -1,7 +1,10 @@
-import React, { useMemo, useState } from 'react';
-import DocumentPicker, { DocumentPickerResponse } from 'react-native-document-picker';
+import React, { useMemo, useState } from "react";
+import DocumentPicker, {
+  DocumentPickerResponse,
+} from "react-native-document-picker";
+import { AntDesign } from "@expo/vector-icons";
 
-import { AddProcedureProps } from './interfaces';
+import { AddProcedureProps } from "./interfaces";
 import {
   AddButton,
   AddButtonTitle,
@@ -12,15 +15,17 @@ import {
   PressArea,
   TextInput,
   Title,
-} from './styles';
-import { theme } from '../../styles';
-import { Feather } from '@expo/vector-icons';
+  AddButtonDoc,
+  AddButtonTitleDoc,
+} from "./styles";
+import { theme } from "../../styles";
+import { Feather } from "@expo/vector-icons";
 
 export const AddProcedure = React.memo(
   ({ addProcedure, closeAddProcedure }: AddProcedureProps) => {
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [category, setCategory] = useState("");
     const [file, setFile] = useState({} as DocumentPickerResponse);
 
     return (
@@ -35,38 +40,59 @@ export const AddProcedure = React.memo(
 
         <Form>
           <Input>
-            <TextInput placeholder='Nome' value={name} onChangeText={setName} />
+            <TextInput
+              placeholder="Título"
+              value={name}
+              onChangeText={setName}
+            />
           </Input>
 
           <Input>
-            <TextInput placeholder='Descrição' value={description} onChangeText={setDescription} />
+            <TextInput
+              placeholder="Descrição"
+              value={description}
+              onChangeText={setDescription}
+            />
           </Input>
 
           <Input>
-            <TextInput placeholder='Categoria' value={category} onChangeText={setCategory} />
+            <TextInput
+              placeholder="Categoria"
+              value={category}
+              onChangeText={setCategory}
+            />
           </Input>
 
-          {!file.name ? <AddButton onPress={async () => {
-            const selectedFile = await DocumentPicker.pickSingle({
-              type: [DocumentPicker.types.allFiles],
-            });
+          {!file.name ? (
+            <AddButtonDoc
+              onPress={async () => {
+                const selectedFile = await DocumentPicker.pickSingle({
+                  type: [DocumentPicker.types.allFiles],
+                });
 
-            console.log({selectedFile})
+                console.log({ selectedFile });
 
-            setFile(selectedFile);
-          }}>
-            <AddButtonTitle>Selecionar arquivo</AddButtonTitle>
-          </AddButton> : <AddButtonTitle>{file.name}</AddButtonTitle>}
+                setFile(selectedFile);
+              }}
+            >
+              <AddButtonTitleDoc>Selecionar arquivo</AddButtonTitleDoc>
+              <AntDesign name="upload" size={24} color="black" />
+            </AddButtonDoc>
+          ) : (
+            <AddButtonTitle>{file.name}</AddButtonTitle>
+          )}
 
-          <AddButton onPress={() => {
-            addProcedure({ name, description, category, file });
+          <AddButton
+            onPress={() => {
+              addProcedure({ name, description, category, file });
 
-            closeAddProcedure();
-          }}>
+              closeAddProcedure();
+            }}
+          >
             <AddButtonTitle>Adicionar procedimento</AddButtonTitle>
           </AddButton>
         </Form>
       </Container>
     );
-  },
+  }
 );

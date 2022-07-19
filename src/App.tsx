@@ -37,7 +37,7 @@ export default function App() {
       <BottomSheetProvider>
         <StatusBar backgroundColor={theme.colors.white} style="dark" />
 
-        <Register />
+        <Home />
       </BottomSheetProvider>
     </ThemeProvider>
   );

@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 export const Container = styled.View`
   flex: 1;
   background: #fff;
+  margin-top: 36;
 `;
 
 export const Text = styled.Text`
@@ -15,7 +16,8 @@ export const ProceduresListHeader = styled.View`
 `;
 
 export const ProceduresListTitle = styled(Text)`
-  font-family: ${({ theme }) => theme.fonts.bold};
+  font-family: ${({ theme }) => theme.fonts.medium};
+  font-size: 18px;
 `;
 
 export const ProceduresList = styled(FlatList)``;

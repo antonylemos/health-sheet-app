@@ -5,6 +5,7 @@ export const theme = {
     primary: "#40b2a3",
     secondary: "#14F5D7",
     cover: "#4E4B6699",
+    white: "#fff",
   },
   fonts: {
     light: "Poppins_300Light",

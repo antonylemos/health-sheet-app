@@ -28,14 +28,15 @@ export const ProceduresListCard = styled.TouchableOpacity`
   padding: 16px;
   margin-bottom: 8px;
   border-radius: 16px;
-  background: ${({ theme }) => theme.colors.secondary};
+  background: ${({ theme }) => theme.colors.primary};
 
   justify-content: space-between;
   align-items: center;
 `;
 
 export const ProceduresListCardName = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.medium};
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: 16px;
 `;
 
 export const AddButton = styled.TouchableOpacity`

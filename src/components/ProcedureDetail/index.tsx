@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 
-import { ProcedureDetailProps } from './interfaces';
+import { ProcedureDetailProps } from "./interfaces";
 import {
   Body,
   Container,
@@ -11,10 +11,12 @@ import {
   ProcedureDescription,
   ProcedureTitle,
   Title,
-} from './styles';
-import { theme } from '../../styles';
-import { Feather } from '@expo/vector-icons';
-import { Alert, Linking } from 'react-native';
+  AddButtonDoc,
+  AddButtonTitleDoc,
+} from "./styles";
+import { theme } from "../../styles";
+import { Feather, AntDesign } from "@expo/vector-icons";
+import { Alert, Linking } from "react-native";
 
 export const ProcedureDetail = React.memo(
   ({ data, deleteProcedure, closeProcedureDetail }: ProcedureDetailProps) => {
@@ -33,27 +35,34 @@ export const ProcedureDetail = React.memo(
 
           <ProcedureDescription>{data.description}</ProcedureDescription>
 
-          {!!data.file && <DeleteButton onPress={async () => {
-            const supported = await Linking.canOpenURL(data.file);
+          {!!data.file && (
+            <AddButtonDoc
+              onPress={async () => {
+                const supported = await Linking.canOpenURL(data.file);
 
-            if (supported) {
-              await Linking.openURL(data.file);
-            } else {
-              Alert.alert(`Don't know how to open this URL: ${data.file}`);
-            }
-          }}>
-            <DeleteButtonTitle>Abrir arquivo</DeleteButtonTitle>
-          </DeleteButton>}
+                if (supported) {
+                  await Linking.openURL(data.file);
+                } else {
+                  Alert.alert(`Don't know how to open this URL: ${data.file}`);
+                }
+              }}
+            >
+              <AntDesign name="download" size={30} color="black" />
+              <AddButtonTitleDoc>Abrir arquivo</AddButtonTitleDoc>
+            </AddButtonDoc>
+          )}
 
-          <DeleteButton onPress={() => {
-            deleteProcedure(data.id);
+          <DeleteButton
+            onPress={() => {
+              deleteProcedure(data.id);
 
-            closeProcedureDetail();
-          }}>
-            <DeleteButtonTitle>Apagar procedimento</DeleteButtonTitle>
+              closeProcedureDetail();
+            }}
+          >
+            <DeleteButtonTitle> Apagar procedimento </DeleteButtonTitle>
           </DeleteButton>
         </Body>
       </Container>
     );
-  },
+  }
 );

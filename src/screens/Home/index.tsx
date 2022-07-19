@@ -35,7 +35,7 @@ export function Home() {
     try {
       setLoading(true);
 
-      const { data } = await api.get<Procedure[]>(`procedures/?userId=${mockedUser.id}`);
+      const { data } = await api.get<Procedure[]>(`procedures`);
 
       setProcedures(data);
     } finally {
@@ -44,13 +44,21 @@ export function Home() {
   }, []);
 
   const addProcedure = useCallback(async (data) => {
-    const newProcedure = {
-      ...data,
-      userId: mockedUser.id,
-    };
+    const formData = new FormData();
+
+    formData.append('name', data.name);
+    formData.append('description', data.description);
+    formData.append('category', data.category);
+    formData.append('file', data.file);
 
     try {
-      await api.post('procedures', newProcedure);
+      await api.post('procedures', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data; ',
+        },
+      });
+    } catch(err) {
+      console.log(err)
     } finally {
       fetchProcedures();
     }

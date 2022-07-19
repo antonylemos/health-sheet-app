@@ -4,6 +4,7 @@ interface FormData {
   name: string;
   description: string;
   category: string;
+  file: any;
 }
 
 export interface AddProcedureProps {

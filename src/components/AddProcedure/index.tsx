@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import DocumentPicker, { DocumentPickerResponse } from 'react-native-document-picker';
 
 import { AddProcedureProps } from './interfaces';
 import {
@@ -20,6 +21,7 @@ export const AddProcedure = React.memo(
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
+    const [file, setFile] = useState({} as DocumentPickerResponse);
 
     return (
       <Container>
@@ -44,8 +46,20 @@ export const AddProcedure = React.memo(
             <TextInput placeholder='Categoria' value={category} onChangeText={setCategory} />
           </Input>
 
+          {!file.name ? <AddButton onPress={async () => {
+            const selectedFile = await DocumentPicker.pickSingle({
+              type: [DocumentPicker.types.allFiles],
+            });
+
+            console.log({selectedFile})
+
+            setFile(selectedFile);
+          }}>
+            <AddButtonTitle>Selecionar arquivo</AddButtonTitle>
+          </AddButton> : <AddButtonTitle>{file.name}</AddButtonTitle>}
+
           <AddButton onPress={() => {
-            addProcedure({ name, description, category });
+            addProcedure({ name, description, category, file });
 
             closeAddProcedure();
           }}>

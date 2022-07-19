@@ -10,7 +10,7 @@ import { LogBox } from "react-native";
 import { ThemeProvider } from "styled-components";
 import { BottomSheetProvider } from "./contexts/bottom-sheet";
 
-//import { Login } from "./screens/Login";
+import { Login } from "./screens/Login";
 import { Home } from "./screens/Home";
 
 import { theme } from "./styles";

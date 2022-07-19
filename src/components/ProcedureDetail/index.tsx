@@ -14,6 +14,7 @@ import {
 } from './styles';
 import { theme } from '../../styles';
 import { Feather } from '@expo/vector-icons';
+import { Alert, Linking } from 'react-native';
 
 export const ProcedureDetail = React.memo(
   ({ data, deleteProcedure, closeProcedureDetail }: ProcedureDetailProps) => {
@@ -31,6 +32,18 @@ export const ProcedureDetail = React.memo(
           <ProcedureTitle>{data.name}</ProcedureTitle>
 
           <ProcedureDescription>{data.description}</ProcedureDescription>
+
+          {!!data.file && <DeleteButton onPress={async () => {
+            const supported = await Linking.canOpenURL(data.file);
+
+            if (supported) {
+              await Linking.openURL(data.file);
+            } else {
+              Alert.alert(`Don't know how to open this URL: ${data.file}`);
+            }
+          }}>
+            <DeleteButtonTitle>Abrir arquivo</DeleteButtonTitle>
+          </DeleteButton>}
 
           <DeleteButton onPress={() => {
             deleteProcedure(data.id);
